@@ -1,4 +1,3 @@
-const { db } = require("../lib/orm");
 const {
   getAgreementById,
   getUserAgreements,

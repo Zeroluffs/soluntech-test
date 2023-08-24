@@ -1,6 +1,3 @@
-const { db, Orm } = require("../lib/orm");
-var jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 const { Login, getAllUsers } = require("../services/user.service");
 
 const userCtrl = {};
