@@ -1,6 +1,6 @@
 // Import required modules and setup the database and ORM
 const { db, Orm } = require("../lib/orm");
-const { Agreement } = require("./aggreement");
+const { Agreement } = require("./agreement");
 
 // Define the Account model with its attributes
 const Account = db.define("Account", {
