@@ -10,13 +10,16 @@ balanceCtrl.depositMoney = async (req, res) => {
     ` SELECT * FROM accounts WHERE id = ${accountId} AND type = 'buyer'`,
   );
   if (account.length === 0) {
-    return res.status(400).json({ message: "Account not found" });
+    return res.status(404).json({ message: "Account not found" });
   }
   const [submissions] = await db.query(
     `SELECT s.* FROM submissions s INNER JOIN agreements a ON s.AgreementId = a.id WHERE a.status IN ('in_progress', 'new') AND (a.BuyerId = ${req.user.userId} )
     AND s.paid = 0
     `,
   );
+  if (submissions.length === 0) {
+    return res.status(404).json({ message: "No submissions found" });
+  }
   let totalPrice = submissions.reduce((acc, submission) => {
     return acc + submission.price;
   }, 0);
