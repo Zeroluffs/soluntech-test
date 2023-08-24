@@ -2,7 +2,7 @@ const { db } = require("../lib/orm");
 const CustomError = require("../classUtils/CustomError");
 const submissionsService = {};
 
-submissionsService.getUnpaidSubmissions = async (userId) => {
+submissionsService.getUnpaidSubmissionsPerUser = async (userId) => {
   const [submissions] = await db.query(
     `SELECT s.* FROM submissions s INNER JOIN agreements a ON s.AgreementId = a.id WHERE a.status IN ('in_progress') AND (a.BuyerId = ${userId} OR a.SupplierId = ${userId})`,
   );
@@ -12,7 +12,7 @@ submissionsService.getUnpaidSubmissions = async (userId) => {
   return submissions;
 };
 
-submissionsService.paySubmission = async (id, price, userId) => {
+submissionsService.payUserSubmission = async (id, price, userId) => {
   const [buyer] = await db.query(
     `SELECT * FROM accounts WHERE id = ${userId} AND  type = 'buyer'`,
   );

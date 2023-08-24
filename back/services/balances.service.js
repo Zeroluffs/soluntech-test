@@ -2,7 +2,7 @@ const { db } = require("../lib/orm");
 const CustomError = require("../classUtils/CustomError");
 const balancesService = {};
 
-balancesService.depositMoney = async (accountId, amount, userId) => {
+balancesService.depositBuyerMoney = async (accountId, amount, userId) => {
   const [account] = await db.query(
     ` SELECT * FROM accounts WHERE id = ${accountId} AND type = 'buyer'`,
   );
@@ -12,7 +12,7 @@ balancesService.depositMoney = async (accountId, amount, userId) => {
   const [submissions] = await db.query(
     `SELECT s.* FROM submissions s INNER JOIN agreements a ON s.AgreementId = a.id WHERE a.status IN ('in_progress', 'new') AND (a.BuyerId = ${userId} ) AND s.paid = 0`,
   );
-  if (submissions.length === 0) {
+  if (!submissions) {
     throw new CustomError("No submissions found", 404);
   }
   let totalPrice = submissions.reduce((acc, submission) => {
