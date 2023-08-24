@@ -1,5 +1,5 @@
 const { db, Orm } = require("../lib/orm");
-var jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { status } = require("express/lib/response");
 const CustomError = require("../classUtils/CustomError");
