@@ -33,6 +33,7 @@ export const verifyToken = async (): Promise<boolean> => {
       const res = await response.json();
       return res.isValid;
     } catch (error) {
+      localStorage.removeItem("token");
       return false;
     }
   }

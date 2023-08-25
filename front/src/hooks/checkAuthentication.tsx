@@ -16,5 +16,5 @@ export function useAuthentication() {
       }
     }
     checkToken();
-  }, [router]);
+  }, []);
 }
