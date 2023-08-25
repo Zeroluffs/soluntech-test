@@ -1,4 +1,4 @@
-type AgreementType = {
+type Agreement = {
   id: number;
   terms: string;
   privacy: string;
