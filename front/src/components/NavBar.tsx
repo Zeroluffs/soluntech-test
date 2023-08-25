@@ -18,7 +18,7 @@ export function NavBar() {
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false)
+      () => window.innerWidth >= 960 && setOpenNav(false),
     );
   }, []);
 
@@ -30,8 +30,8 @@ export function NavBar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link href="/admin/addproduct" className="flex items-center">
-          Lista de Productos
+        <Link href="/" className="flex items-center">
+          Agreement List
         </Link>
       </Typography>
       <Typography
@@ -61,7 +61,7 @@ export function NavBar() {
     <div
       className={classNames(
         user ? "block" : "hidden",
-        "max-h-[768px] mt-4 mb-16 "
+        "max-h-[768px] mt-4 mb-16 ",
       )}
     >
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">

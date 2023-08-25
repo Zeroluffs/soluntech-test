@@ -7,7 +7,7 @@ import {
   LoginParams,
 } from "@/types/auth";
 import { ApiError } from "next/dist/server/api-utils";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { set } from "react-hook-form";
 import { any } from "zod";
 import { useRouter } from "next/router";
@@ -38,8 +38,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<DecodedToken | null>(null);
   const [wrongCredentials, setWrongCredentials] = useState(false);
   const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = getDecodedToken();
+      if (decodedToken) {
+        setUser(decodedToken);
+      }
+    }
+  }, []);
+
   const login = async ({ username, password }: LoginParams) => {
     // call login api
+
     const response = await apiLogin({ username, password });
     if (response.status === 200) {
       setWrongCredentials(false);
