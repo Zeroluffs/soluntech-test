@@ -4,13 +4,13 @@ const balancesService = {};
 
 balancesService.depositBuyerMoney = async (accountId, amount, userId) => {
   const [account] = await db.query(
-    ` SELECT * FROM accounts WHERE id = ${accountId} AND type = 'buyer'`,
+    ` SELECT * FROM accounts WHERE id = ${accountId} AND type = 'buyer'`
   );
   if (account.length === 0) {
     throw new CustomError("Account not found", 404);
   }
   const [submissions] = await db.query(
-    `SELECT s.* FROM submissions s INNER JOIN agreements a ON s.AgreementId = a.id WHERE a.status IN ('in_progress', 'new') AND (a.BuyerId = ${userId} ) AND s.paid = 0`,
+    `SELECT s.* FROM submissions s INNER JOIN agreements a ON s.AgreementId = a.id WHERE a.status IN ('in_progress', 'new') AND (a.BuyerId = ${userId} ) AND s.paid = 0`
   );
   if (!submissions) {
     throw new CustomError("No submissions found", 404);
@@ -25,7 +25,7 @@ balancesService.depositBuyerMoney = async (accountId, amount, userId) => {
   }
   account[0].balance = account[0].balance + amount;
   await db.query(
-    `UPDATE accounts SET balance = ${account[0].balance} WHERE id = ${accountId}`,
+    `UPDATE accounts SET balance = ${account[0].balance} WHERE id = ${accountId}`
   );
 };
 
