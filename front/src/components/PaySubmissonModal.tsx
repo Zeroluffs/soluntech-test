@@ -14,6 +14,7 @@ import { paySubmission } from "@/controllers/submissions/submissions";
 import { PAYMENT_SUCCESSFULL } from "@/controllers/consts";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import useSubmission from "@/context/submission";
 
 interface SubmissionType {
   submissions: Submission;
@@ -24,7 +25,8 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
   const paymentLoading = paymentStatus === "loading";
   const paymentSuccess = paymentStatus === "success";
   const { toast } = useToast();
-
+  const { setIsModalOpen } = useSubmission();
+  const [open, setOpen] = useState(false);
   async function handlePay(agreement: Submission) {
     setPaymentStatus("loading");
     const price = {
@@ -40,14 +42,22 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
         title: "Error",
         description: res.message,
         action: (
-          <ToastAction altText={"Deposit Money"}>Deposit Money</ToastAction>
+          <ToastAction
+            onClick={() => {
+              setOpen(false);
+              setIsModalOpen(true);
+            }}
+            altText={"Deposit Money"}
+          >
+            Deposit Money
+          </ToastAction>
         ),
       });
     }
   }
   return (
     <>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant="outline">Pay</Button>
         </DialogTrigger>

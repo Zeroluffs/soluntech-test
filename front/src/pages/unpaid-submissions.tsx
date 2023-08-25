@@ -17,6 +17,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { PaySubmissionModal } from "@/components/PaySubmissonModal";
+import { SubmissionProvider } from "@/context/submission";
 
 export const columns: ColumnDef<Submission>[] = [
   {

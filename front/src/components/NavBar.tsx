@@ -3,7 +3,6 @@ import {
   Navbar,
   MobileNav,
   Typography,
-  Button,
   IconButton,
   Card,
   Collapse,
@@ -12,12 +11,14 @@ import Link from "next/link";
 import useAuth from "@/context/auth";
 import { classNames } from "@/utils/helperFunctions";
 import { useAuthentication } from "@/hooks/checkAuthentication";
+import { Button } from "@/components/ui/button";
+import useSubmission from "@/context/submission";
 
 export function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
   const { user } = useAuth();
   useAuthentication();
-
+  const { setIsModalOpen, isModalOpen } = useSubmission();
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -52,9 +53,13 @@ export function NavBar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link href="/admin/editproduct" className="flex items-center">
-          Editar Producto
-        </Link>
+        <Button
+          onClick={() => {
+            setIsModalOpen(true);
+          }}
+        >
+          Add Funds
+        </Button>
       </Typography>
     </ul>
   );
@@ -77,13 +82,13 @@ export function NavBar() {
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
-            <Button
-              variant="gradient"
-              size="sm"
-              className="hidden lg:inline-block"
-            >
-              <span>Buy Now</span>
-            </Button>
+            {/*<Button*/}
+            {/*  variant="gradient"*/}
+            {/*  size="sm"*/}
+            {/*  className="hidden lg:inline-block"*/}
+            {/*>*/}
+            {/*  <span>Buy Now</span>*/}
+            {/*</Button>*/}
             <IconButton
               variant="text"
               className="flex justify-center h-6 w-6  text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -125,9 +130,9 @@ export function NavBar() {
         </div>
         <Collapse open={openNav}>
           {navList}
-          <Button variant="gradient" size="sm" fullWidth className="mb-2">
-            <span>Buy Now</span>
-          </Button>
+          {/*<Button variant="gradient" size="sm" fullWidth className="mb-2">*/}
+          {/*  <span>Buy Now</span>*/}
+          {/*</Button>*/}
         </Collapse>
       </Navbar>
       {/*<div className="mx-auto max-w-screen-md py-12"></div>*/}
