@@ -8,6 +8,7 @@ var usersRouter = require("./routes/users");
 var agreementRouter = require("./routes/agreement");
 var submissionRouter = require("./routes/submission");
 const balanceRouter = require("./routes/balance");
+const tokenRouter = require("./routes/token");
 var app = express();
 
 app.use(logger("dev"));
@@ -22,6 +23,7 @@ app.use("/users", usersRouter);
 app.use("/agreements", agreementRouter);
 app.use("/submissions", submissionRouter);
 app.use("/balances", balanceRouter);
+app.use("/token", tokenRouter);
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
 //   next(createError(404));
