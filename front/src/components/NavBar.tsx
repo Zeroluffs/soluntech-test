@@ -13,11 +13,13 @@ import { classNames } from "@/utils/helperFunctions";
 import { useAuthentication } from "@/hooks/checkAuthentication";
 import { Button } from "@/components/ui/button";
 import useSubmission from "@/context/submission";
+import { useToast } from "@/components/ui/use-toast";
 
 export function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
-  const { user } = useAuth();
+  const { user, balance } = useAuth();
   useAuthentication();
+  const { toast } = useToast();
   const { setIsModalOpen, isModalOpen } = useSubmission();
   React.useEffect(() => {
     window.addEventListener(
@@ -60,6 +62,14 @@ export function NavBar() {
         >
           Add Funds
         </Button>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal text-green-500"
+      >
+        Total Balance: ${balance}
       </Typography>
     </ul>
   );

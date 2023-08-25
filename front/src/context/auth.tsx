@@ -14,6 +14,8 @@ import { useRouter } from "next/router";
 
 export interface AuthContextProps {
   user: DecodedToken | null;
+  balance: number;
+  setBalance: (value: number) => void;
   login: (params: LoginParams) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
@@ -24,6 +26,8 @@ export interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps>({
   user: null,
+  balance: 0,
+  setBalance: () => {},
   wrongCredentials: false,
   login: async () => {},
   logout: async () => {},
@@ -37,6 +41,7 @@ const AuthContext = createContext<AuthContextProps>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<DecodedToken | null>(null);
   const [wrongCredentials, setWrongCredentials] = useState(false);
+  const [balance, setBalance] = useState<number>(0);
   const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -44,6 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const decodedToken = getDecodedToken();
       if (decodedToken) {
         setUser(decodedToken);
+        setBalance(decodedToken.balance);
       }
     }
   }, []);
@@ -96,6 +102,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       value={{
         user,
         wrongCredentials,
+        balance,
+        setBalance,
         login,
         logout,
         checkAuth,

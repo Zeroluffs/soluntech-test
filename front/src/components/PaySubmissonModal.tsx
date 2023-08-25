@@ -61,7 +61,7 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
         <DialogTrigger asChild>
           <Button variant="outline">Pay</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="w-[300px] sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Pay Submission</DialogTitle>
           </DialogHeader>

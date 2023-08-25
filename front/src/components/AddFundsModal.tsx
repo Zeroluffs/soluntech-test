@@ -17,6 +17,7 @@ import { addFunds } from "@/controllers/balance/funds";
 import useAuth from "@/context/auth";
 import { DEPOSIT_SUCCESSFULL } from "@/controllers/consts";
 import classNames from "classnames";
+import { useToast } from "@/components/ui/use-toast";
 
 export function AddFundsModal() {
   const { setIsModalOpen, isModalOpen } = useSubmission();
@@ -26,14 +27,25 @@ export function AddFundsModal() {
   const isSuccess = isProcessing === "success";
   const isFailure = isProcessing === "failure";
   const [amount, setAmount] = useState<number>(0);
-  const { user } = useAuth();
+  const { user, setBalance, balance } = useAuth();
+  const { toast } = useToast();
   async function handleSubmit() {
     setIsProcessing("loading");
     const res = await addFunds(amount, user?.userId);
     if (res.message !== DEPOSIT_SUCCESSFULL) {
       setIsProcessing("failure");
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: res.message,
+      });
     } else {
       setIsProcessing("success");
+      setBalance(balance + amount);
+      toast({
+        title: "Success",
+        description: res.message,
+      });
     }
     setMessage(res.message);
   }
@@ -43,7 +55,7 @@ export function AddFundsModal() {
   return (
     <>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className=" w-[300px] sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Add Funds</DialogTitle>
             <DialogDescription>
