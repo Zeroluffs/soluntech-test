@@ -40,8 +40,8 @@ export function NavBar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link href="/admin/addproduct" className="flex items-center">
-          Agregar Producto
+        <Link href="/unpaid-submissions" className="flex items-center">
+          Unpaid Submissions
         </Link>
       </Typography>
       <Typography
