@@ -27,6 +27,7 @@ userService.Login = async (username, password) => {
           username: user[0].username,
           profession: user[0].profession,
           balance: user[0].balance,
+          role: user[0].type,
         },
         "secret",
         { expiresIn: "2h" }

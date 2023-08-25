@@ -11,7 +11,7 @@ userCtrl.login = async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await Login(username, password);
-    res.json({ token: user });
+    res.status(200).json(user);
   } catch (err) {
     res.status(err.code).json({ message: err.message });
   }
