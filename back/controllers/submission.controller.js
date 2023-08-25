@@ -22,7 +22,7 @@ submissionCtrl.paySubmission = async (req, res) => {
 
   try {
     await payUserSubmission(id, price, userId);
-    res.json({ message: "Payment successful" });
+    res.json({ message: "Payment Successfull" });
   } catch (err) {
     res.status(err.code).json({ message: err.message });
   }
