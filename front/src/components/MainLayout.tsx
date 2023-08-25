@@ -1,4 +1,5 @@
 import { NavBar } from "./NavBar";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function MainLayout({
   children,
@@ -9,6 +10,7 @@ export default function MainLayout({
     <div className="container mx-auto max-w-7xl">
       <NavBar />
       {children}
+      <Toaster />
     </div>
   );
 }

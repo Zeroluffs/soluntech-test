@@ -12,6 +12,8 @@ import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { paySubmission } from "@/controllers/submissions/submissions";
 import { PAYMENT_SUCCESSFULL } from "@/controllers/consts";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 interface SubmissionType {
   submissions: Submission;
@@ -21,6 +23,7 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
   const [message, setMessage] = useState<string>("");
   const paymentLoading = paymentStatus === "loading";
   const paymentSuccess = paymentStatus === "success";
+  const { toast } = useToast();
 
   async function handlePay(agreement: Submission) {
     setPaymentStatus("loading");
@@ -32,6 +35,14 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
     setMessage(res.message);
     if (res.message !== PAYMENT_SUCCESSFULL) {
       setPaymentStatus("unpaid");
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: res.message,
+        action: (
+          <ToastAction altText={"Deposit Money"}>Deposit Money</ToastAction>
+        ),
+      });
     }
   }
   return (
