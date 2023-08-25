@@ -49,7 +49,7 @@ export default function Login() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 w-[284px] md:w-[400px] m-auto"
+        className="space-y-8 w-[284px] md:w-[400px] m-auto mt-32"
       >
         <FormField
           control={form.control}

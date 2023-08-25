@@ -9,10 +9,12 @@ import {
   Collapse,
 } from "@material-tailwind/react";
 import Link from "next/link";
+import useAuth from "@/context/auth";
+import { classNames } from "@/utils/helperFunctions";
 
 export function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
-
+  const { user } = useAuth();
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -56,7 +58,12 @@ export function NavBar() {
   );
 
   return (
-    <div className="max-h-[768px] mt-4 mb-16 ">
+    <div
+      className={classNames(
+        user ? "block" : "hidden",
+        "max-h-[768px] mt-4 mb-16 "
+      )}
+    >
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
