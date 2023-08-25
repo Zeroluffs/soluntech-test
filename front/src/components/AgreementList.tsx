@@ -70,7 +70,7 @@ export default function AgreementList() {
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={agreements} />
+      <DataTable columns={columns} data={agreements} filterValue={"status"} />
     </div>
   );
 }

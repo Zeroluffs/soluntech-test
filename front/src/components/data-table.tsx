@@ -22,15 +22,17 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData, TValue, Tstring> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  filterValue: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+  filterValue,
+}: DataTableProps<TData, TValue, String>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -53,10 +55,12 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter by status..."
-          value={(table.getColumn("status")?.getFilterValue() as string) ?? ""}
+          placeholder={`Filter by ${filterValue}...`}
+          value={
+            (table.getColumn(filterValue)?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("status")?.setFilterValue(event.target.value)
+            table.getColumn(filterValue)?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
