@@ -10,6 +10,7 @@ import { ApiError } from "next/dist/server/api-utils";
 import { createContext, useContext, useState } from "react";
 import { set } from "react-hook-form";
 import { any } from "zod";
+import { useRouter } from "next/router";
 
 export interface AuthContextProps {
   user: DecodedToken | null;
@@ -36,7 +37,7 @@ const AuthContext = createContext<AuthContextProps>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<DecodedToken | null>(null);
   const [wrongCredentials, setWrongCredentials] = useState(false);
-
+  const router = useRouter();
   const login = async ({ username, password }: LoginParams) => {
     // call login api
     const response = await apiLogin({ username, password });
@@ -44,10 +45,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setWrongCredentials(false);
       const token = await response.json();
       registerUserLocalStorage(token);
+      console.log("register");
       const decodedToken = getDecodedToken();
       if (decodedToken) {
         setUser(decodedToken);
-      } else {
+        router.push("/");
       }
     } else {
       setWrongCredentials(true);

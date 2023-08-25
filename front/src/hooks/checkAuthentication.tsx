@@ -1,12 +1,20 @@
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { verifyToken } from "@/controllers/auth/jwtHandler";
 
 export function useAuthentication() {
   const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login");
+    let res;
+
+    async function checkToken() {
+      res = await verifyToken();
+      console.log("res", res);
+      if (!token || !res) {
+        router.push("/login");
+      }
     }
+    checkToken();
   }, [router]);
 }

@@ -1,17 +1,10 @@
-import { ApiErrorRespose, LoginOKResponse, LoginParams } from "@/types/auth";
+import { LoginOKResponse, LoginParams } from "@/types/auth";
 import { BASE_URL } from "../consts";
 
 export async function apiLogin(
-  params: LoginParams
+  params: LoginParams,
 ): Promise<LoginOKResponse | any> {
   try {
-    const response = await fetch(`${BASE_URL}/users/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(params),
-    });
     // console.log(response);
     // const res = await response.json();
     // console.log(res);
@@ -19,7 +12,13 @@ export async function apiLogin(
     //   return response.json() as Promise<ApiErrorRespose>;
     // }
     // return response.json() as Promise<LoginOKResponse>;
-    return response;
+    return await fetch(`${BASE_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    });
   } catch (error) {
     return error;
   }
