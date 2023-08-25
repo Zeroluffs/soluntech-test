@@ -74,7 +74,10 @@ const DialogFooter = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("flex  justify-between sm:space-x-2", className)}
+    className={cn(
+      "flex flex-row-reverse justify-between  items-center  sm:space-x-2",
+      className,
+    )}
     {...props}
   />
 );
