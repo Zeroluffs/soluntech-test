@@ -29,11 +29,13 @@ userService.Login = async (username, password) => {
           balance: user[0].balance,
         },
         "secret",
-        { expiresIn: "2h" },
+        { expiresIn: "2h" }
       );
     } else {
       throw new CustomError("Invalid Credentials", 400);
     }
+  } else {
+    throw new CustomError("Invalid Credentials", 400);
   }
 };
 
