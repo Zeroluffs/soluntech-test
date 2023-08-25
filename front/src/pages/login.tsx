@@ -9,8 +9,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import useAuth from "@/context/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { set, useForm } from "react-hook-form";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -23,6 +26,10 @@ const formSchema = z.object({
 });
 
 export default function Login() {
+  const [loginStatus, setLoginStatus] = useState("not_submitted"); // [false, true, false
+
+  const isProcessing = loginStatus === "submitted";
+  const { login, wrongCredentials } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,10 +37,12 @@ export default function Login() {
       password: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoginStatus("submitted");
     console.log(values);
+    await login(values);
+    setLoginStatus("not_submitted");
   }
 
   return (
@@ -69,7 +78,13 @@ export default function Login() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button disabled={isProcessing} type="submit">
+          {isProcessing ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : null}
+          {isProcessing ? "Submitting..." : "Submit"}
+        </Button>
+        {wrongCredentials && <p>Wrong credentials try again</p>}
       </form>
     </Form>
   );
