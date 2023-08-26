@@ -12,7 +12,12 @@ submissionCtrl.getUnpaidSubmissions = async (req, res) => {
     const submissions = await getUnpaidSubmissionsPerUser(userId);
     res.json(submissions);
   } catch (err) {
-    res.status(err.code).json({ message: err.message });
+    if (err instanceof CustomError) {
+      res.status(err.code).json({ message: err.message });
+    } else {
+      console.error("Error:", err);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 };
 

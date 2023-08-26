@@ -1,3 +1,4 @@
+const CustomError = require("../classUtils/CustomError");
 const {
   getAgreementById,
   getUserAgreements,
@@ -12,7 +13,12 @@ agreementCtrl.getAgreementById = async (req, res) => {
     const agreement = await getAgreementById(id, userId);
     res.json(agreement);
   } catch (err) {
-    res.status(err.code).json({ message: err.message });
+    if (err instanceof CustomError) {
+      res.status(err.code).json({ message: err.message });
+    } else {
+      console.error("Error:", err);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 };
 
@@ -22,7 +28,12 @@ agreementCtrl.getAgreements = async (req, res) => {
     const agreements = await getUserAgreements(userId);
     res.json(agreements);
   } catch (err) {
-    res.status(err.code).json({ message: err.message });
+    if (err instanceof CustomError) {
+      res.status(err.code).json({ message: err.message });
+    } else {
+      console.error("Error:", err);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 };
 

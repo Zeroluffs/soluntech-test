@@ -1,3 +1,4 @@
+const CustomError = require("../classUtils/CustomError");
 const { db } = require("../lib/orm");
 const { depositBuyerMoney } = require("../services/balances.service");
 
@@ -10,9 +11,13 @@ balanceCtrl.depositMoney = async (req, res) => {
   try {
     await depositBuyerMoney(accountId, amount, userId);
     return res.json({ message: "Deposit Successful" });
-  } catch (e) {
-    console.log("got here");
-    res.status(e.code).json({ message: e.message });
+  } catch (err) {
+    if (err instanceof CustomError) {
+      res.status(err.code).json({ message: err.message });
+    } else {
+      console.error("Error:", err);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 };
 
