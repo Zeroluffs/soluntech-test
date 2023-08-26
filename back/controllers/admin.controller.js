@@ -12,4 +12,14 @@ adminCtrl.getBestProfessions = async (req, res) => {
   }
 };
 
+adminCtrl.getBestBuyers = async (req, res) => {
+  const { start, end, limit } = req.params;
+  try {
+    const bestBuyers = await adminService.getBestBuyers(start, end, limit);
+    res.status(200).json(bestBuyers);
+  } catch (err) {
+    res.status(err.code).json({ message: err.message });
+  }
+};
+
 module.exports = adminCtrl;

@@ -10,4 +10,10 @@ router.get(
   adminCtrl.getBestProfessions
 );
 
+router.get(
+  "/best-buyers/:start/:end/:limit",
+  verifyToken,
+  adminCtrl.getBestBuyers
+);
+
 module.exports = router;
