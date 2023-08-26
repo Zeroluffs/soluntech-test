@@ -17,6 +17,7 @@ import { ToastAction } from "@/components/ui/toast";
 import useSubmission from "@/context/submission";
 import useAuth from "@/context/auth";
 import classNames from "classnames";
+import { mutate } from "swr";
 
 interface SubmissionType {
   submissions: Submission;
@@ -57,6 +58,7 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
         ),
       });
     } else {
+      await mutate("/api/unpaidSubmissions");
       setPaymentStatus("success");
       setBalance(balance - agreement.price);
       toast({
