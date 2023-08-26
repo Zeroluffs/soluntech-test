@@ -74,9 +74,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
-    // call logout api
-    // await logoutApi();
-    // setUser(null);
+    localStorage.removeItem("token");
+    setUser(null);
+    setBalance(0);
+    await router.push("/login");
   };
 
   const checkAuth = async () => {

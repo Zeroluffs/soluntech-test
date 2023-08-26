@@ -17,7 +17,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 export function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
-  const { user, balance } = useAuth();
+  const { user, balance, logout } = useAuth();
   useAuthentication();
   const { toast } = useToast();
   const { setIsModalOpen, isModalOpen } = useSubmission();
@@ -70,6 +70,20 @@ export function NavBar() {
         className="p-1 font-normal text-green-500"
       >
         Total Balance: ${balance}
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <Button
+          onClick={() => {
+            logout();
+          }}
+        >
+          Logout
+        </Button>
       </Typography>
     </ul>
   );

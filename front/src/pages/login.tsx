@@ -12,9 +12,10 @@ import { Input } from "@/components/ui/input";
 import useAuth from "@/context/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import * as z from "zod";
+import { useRouter } from "next/router";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -27,9 +28,9 @@ const formSchema = z.object({
 
 export default function Login() {
   const [loginStatus, setLoginStatus] = useState("not_submitted"); // [false, true, false
-
+  const router = useRouter();
   const isProcessing = loginStatus === "submitted";
-  const { login, wrongCredentials } = useAuth();
+  const { login, wrongCredentials, user } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,7 +38,11 @@ export default function Login() {
       password: "",
     },
   });
-
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/");
+    }
+  }, []);
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoginStatus("submitted");
     console.log(values);
