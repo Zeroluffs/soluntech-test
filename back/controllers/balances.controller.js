@@ -9,7 +9,7 @@ balanceCtrl.depositMoney = async (req, res) => {
   const { userId } = req.user;
   try {
     await depositBuyerMoney(accountId, amount, userId);
-    return res.json({ message: "Deposit Successfull" });
+    return res.json({ message: "Deposit Successful" });
   } catch (e) {
     console.log("got here");
     res.status(e.code).json({ message: e.message });

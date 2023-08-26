@@ -19,7 +19,7 @@ async function seed() {
       password: bcrypt.hashSync("alice", salt),
       lastName: "Johnson",
       profession: "Engineer",
-      balance: 100,
+      balance: 972.12,
       type: "buyer",
     }),
     Account.create({
