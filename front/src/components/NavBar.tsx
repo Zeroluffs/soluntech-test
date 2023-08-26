@@ -21,7 +21,7 @@ export function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
   const { user, balance, logout } = useAuth();
   const router = useRouter();
-  useAuthentication();
+  const role = user?.role;
   const { toast } = useToast();
   const { setIsModalOpen, isModalOpen } = useSubmission();
   React.useEffect(() => {
@@ -79,7 +79,8 @@ export function NavBar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal"
+        // className="p-1 font-normal "
+        className={`p-1 font-normal ${role === "buyer" ? "" : "hidden"}`}
       >
         <Button
           onClick={() => {

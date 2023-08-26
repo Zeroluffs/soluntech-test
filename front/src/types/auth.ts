@@ -17,6 +17,7 @@ export type DecodedToken = {
   username: string;
   profession: string;
   balance: number;
+  role: string;
   iat: number;
   exp: number;
 };
