@@ -27,7 +27,9 @@ export function ProfileMenu() {
               setIsModalOpen(true);
             }}
             variant="small"
-            className="font-normal text-lg"
+            className={`font-normal text-lg ${
+              user?.role === "buyer" ? "" : "hidden"
+            }`}
           >
             Add Funds
           </Typography>

@@ -95,7 +95,9 @@ export function NavBar() {
             variant="small"
             color="blue-gray"
             // className="p-1 font-normal "
-            className={`p-1 font-normal ${role === "buyer" ? "" : "hidden"}`}
+            className={`p-1 font-normal ${
+              user?.role === "buyer" ? "" : "hidden"
+            }`}
           >
             <Button
               onClick={() => {
