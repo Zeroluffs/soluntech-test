@@ -19,3 +19,25 @@ export async function getUsers(from: string, to: string) {
     return [];
   }
 }
+
+export async function getBestBuyers(from: string, to: string, limit?: number) {
+  const token = JSON.parse(localStorage.getItem("token") || "null");
+  const staticLimit = limit || 3;
+  try {
+    const response = await fetch(
+      `${BASE_URL}/admin/best-buyers/${from}/${to}/${staticLimit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        },
+      },
+    );
+    console.log(response);
+    return response.json();
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+}

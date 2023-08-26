@@ -1,4 +1,3 @@
-import * as React from "react";
 import { addDays, format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
@@ -13,15 +12,20 @@ import {
 } from "@/components/ui/popover";
 import { formatDate } from "@/utils/formatDate";
 import { getUsers } from "@/controllers/admin/admin";
+import { Dispatch, HTMLAttributes, SetStateAction, useState } from "react";
 
-export function DatePickerWithRange({
-  className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2023, 7, 20),
-    to: addDays(new Date(2023, 7, 20), 20),
-  });
-  const [message, setMessage] = React.useState<string>("");
+interface DatePickerRangeProps {
+  className?: HTMLAttributes<HTMLDivElement>;
+  date: DateRange | undefined;
+  setDate: Dispatch<SetStateAction<DateRange | undefined>>;
+}
+
+export function DatePickerRange({ className, date, setDate }: any) {
+  // const [date, setDate] = React.useState<DateRange | undefined>({
+  //   from: new Date(2023, 7, 20),
+  //   to: addDays(new Date(2023, 7, 20), 20),
+  // });
+  const [message, setMessage] = useState<string>("");
   async function searchUsers() {
     if (date!.from !== null && date!.to !== null) {
       // @ts-ignore
@@ -41,7 +45,6 @@ export function DatePickerWithRange({
       }
     }
   }
-  console.log(date);
   return (
     <div className={"flex flex-col gap-6"}>
       <div className={cn("grid gap-2", className)}>
@@ -81,13 +84,13 @@ export function DatePickerWithRange({
             />
           </PopoverContent>
         </Popover>
-        <Button
-          disabled={date?.from === undefined || date?.to === undefined}
-          onClick={searchUsers}
-          className="w-[144px] mt-2"
-        >
-          Search
-        </Button>
+        {/*<Button*/}
+        {/*  disabled={date?.from === undefined || date?.to === undefined}*/}
+        {/*  onClick={searchUsers}*/}
+        {/*  className="w-[144px] mt-2"*/}
+        {/*>*/}
+        {/*  Search*/}
+        {/*</Button>*/}
       </div>
       <p className={"text-lg font-semibold"}>{message}</p>
     </div>
