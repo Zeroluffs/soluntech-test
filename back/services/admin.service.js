@@ -11,7 +11,7 @@ adminService.getBestProfessions = async (start, end) => {
     `SELECT b.profession AS best_buyer_profession, SUM(sub.price) AS total_earned FROM agreements a JOIN submissions sub ON a.id = sub.AgreementId JOIN accounts b ON a.BuyerId = b.id WHERE sub.paymentDate BETWEEN '${start}' AND '${end}' AND sub.paid = 1 GROUP BY b.profession ORDER BY total_earned DESC LIMIT 1`
   );
   if (result.length === 0) {
-    throw new CustomError("No Agreements", 404);
+    throw new CustomError("No submissions were paid in this period", 404);
   }
 
   return result[0];
