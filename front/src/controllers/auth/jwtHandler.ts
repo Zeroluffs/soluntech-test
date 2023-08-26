@@ -31,6 +31,9 @@ export const verifyToken = async (): Promise<boolean> => {
         },
       });
       const res = await response.json();
+
+      console.log("res auth", res);
+      localStorage.setItem("token", JSON.stringify(res.newToken));
       return res.isValid;
     } catch (error) {
       localStorage.removeItem("token");
