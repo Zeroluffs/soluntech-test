@@ -1,6 +1,6 @@
-import { NavBar } from "./NavBar";
+import { NavBar } from "./nav-bar";
 import { Toaster } from "@/components/ui/toaster";
-import { AddFundsModal } from "@/components/AddFundsModal";
+import { AddFundsModal } from "@/components/add-funds-modal";
 
 export default function MainLayout({
   children,

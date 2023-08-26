@@ -8,7 +8,7 @@ import { formatDate } from "@/utils/formatDate";
 import { getBestBuyers, getUsers } from "@/controllers/admin/admin";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
-import { PaySubmissionModal } from "@/components/PaySubmissonModal";
+import { PaySubmissionModal } from "@/components/pay-submission-modal";
 import { BestBuyer } from "@/types/bestbuyer";
 import { DataTable } from "@/components/data-table";
 

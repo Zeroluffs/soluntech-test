@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { DataTable } from "@/components/data-table";
-import { PaySubmissionModal } from "@/components/PaySubmissonModal";
+import { PaySubmissionModal } from "@/components/pay-submission-modal";
 import useSWR from "swr";
 
 export const columns: ColumnDef<Submission>[] = [

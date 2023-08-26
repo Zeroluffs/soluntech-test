@@ -15,8 +15,8 @@ import { Button } from "@/components/ui/button";
 import useSubmission from "@/context/submission";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/router";
-import { ModeToggle } from "@/components/ButtonToggle";
-import { ProfileMenu } from "@/components/ProfileMenu";
+import { ModeToggle } from "@/components/button-toggle";
+import { ProfileMenu } from "@/components/profile-menu";
 
 export function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);

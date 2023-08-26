@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/ButtonToggle";
+import { ModeToggle } from "@/components/button-toggle";
 import useSubmission from "@/context/submission";
 import useAuth from "@/context/auth";
 import Link from "next/link";
