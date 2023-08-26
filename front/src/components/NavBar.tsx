@@ -76,51 +76,59 @@ export function NavBar() {
       >
         Total Balance: ${balance}
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        // className="p-1 font-normal "
-        className={`p-1 font-normal ${role === "buyer" ? "" : "hidden"}`}
-      >
-        <Button
-          onClick={() => {
-            setIsModalOpen(true);
-          }}
-        >
-          Add Funds
-        </Button>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <Button
-          onClick={() => {
-            logout();
-          }}
-        >
-          Logout
-        </Button>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <ModeToggle />
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <ProfileMenu />
-      </Typography>
+      {openNav && (
+        <>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            // className="p-1 font-normal "
+            className={`p-1 font-normal ${role === "buyer" ? "" : "hidden"}`}
+          >
+            <Button
+              onClick={() => {
+                setIsModalOpen(true);
+              }}
+            >
+              Add Funds
+            </Button>
+          </Typography>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
+          >
+            <Button
+              onClick={() => {
+                logout();
+              }}
+            >
+              Logout
+            </Button>
+          </Typography>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
+          >
+            <ModeToggle />
+          </Typography>
+        </>
+      )}
+      {!openNav && (
+        <>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
+          >
+            <ProfileMenu />
+          </Typography>
+        </>
+      )}
     </ul>
   );
 

@@ -1,15 +1,7 @@
 import { apiLogin, registerUserLocalStorage } from "@/controllers/auth/auth";
 import { getDecodedToken } from "@/controllers/auth/jwtHandler";
-import {
-  ApiErrorRespose,
-  DecodedToken,
-  LoginOKResponse,
-  LoginParams,
-} from "@/types/auth";
-import { ApiError } from "next/dist/server/api-utils";
+import { DecodedToken, LoginParams } from "@/types/auth";
 import { createContext, useContext, useEffect, useState } from "react";
-import { set } from "react-hook-form";
-import { any } from "zod";
 import { useRouter } from "next/router";
 
 export interface AuthContextProps {
