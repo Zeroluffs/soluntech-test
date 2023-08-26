@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/ButtonToggle";
 import useSubmission from "@/context/submission";
 import useAuth from "@/context/auth";
+import Link from "next/link";
 
 export function ProfileMenu() {
   const { setIsModalOpen, isModalOpen } = useSubmission();
@@ -29,6 +30,11 @@ export function ProfileMenu() {
             className="font-normal text-lg"
           >
             Add Funds
+          </Typography>
+        </MenuItem>
+        <MenuItem className="flex items-center gap-2">
+          <Typography variant="small" className="font-normal text-lg">
+            <Link href={"/best-professions"}>Best Professions</Link>
           </Typography>
         </MenuItem>
         <MenuItem className="flex mt-2 items-center gap-2">

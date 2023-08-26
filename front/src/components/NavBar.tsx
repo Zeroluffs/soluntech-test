@@ -78,6 +78,18 @@ export function NavBar() {
       </Typography>
       {openNav && (
         <>
+          <Typography variant="small" className="p-1 font-normal">
+            <Link
+              className={` ${
+                router.pathname === "/best-professions"
+                  ? "text-blue-500 text-lg"
+                  : ""
+              } hover:text-blue-500 `}
+              href={"/best-professions"}
+            >
+              Best Professions
+            </Link>
+          </Typography>
           <Typography
             as="li"
             variant="small"
@@ -93,6 +105,7 @@ export function NavBar() {
               Add Funds
             </Button>
           </Typography>
+
           <Typography
             as="li"
             variant="small"
