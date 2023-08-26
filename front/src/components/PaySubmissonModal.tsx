@@ -73,11 +73,6 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
             </p>
           </div>
           <DialogFooter className="">
-            {message ? (
-              <DialogDescription className="text-red-500">
-                {message}
-              </DialogDescription>
-            ) : null}
             <Button
               disabled={paymentLoading || paymentSuccess}
               onClick={() => handlePay(submissions)}
@@ -87,6 +82,11 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
               ) : null}
               Pay
             </Button>
+            {message ? (
+              <DialogDescription className="text-red-500">
+                {message}
+              </DialogDescription>
+            ) : null}
           </DialogFooter>
         </DialogContent>
       </Dialog>
