@@ -6,12 +6,46 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { formatDate } from "@/utils/formatDate";
 import { getBestBuyers, getUsers } from "@/controllers/admin/admin";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
+import { PaySubmissionModal } from "@/components/PaySubmissonModal";
+import { BestBuyer } from "@/types/bestbuyer";
+import { DataTable } from "@/components/data-table";
 
+export const columns: ColumnDef<BestBuyer>[] = [
+  {
+    accessorKey: "BuyerId",
+    header: "ID",
+  },
+  {
+    accessorKey: "BuyerName",
+    header: "Name",
+  },
+  {
+    accessorKey: "BuyerProfession",
+    header: "Profession",
+  },
+  {
+    accessorKey: "total_earned",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Total Earned
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+];
 export default function BestBuyers() {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(2023, 7, 20),
     to: addDays(new Date(2023, 7, 20), 20),
   });
+  const [bestBuyers, setBestBuyers] = React.useState<BestBuyer[]>([]);
   const [message, setMessage] = React.useState<string>("");
   async function searchBestBuyers(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,17 +55,8 @@ export default function BestBuyers() {
       const to = date!!.to!!.toDateString();
       const { fromDate, endDate } = formatDate(from, to);
       const objectDate = await getBestBuyers(fromDate, endDate);
+      setBestBuyers(objectDate);
       console.log(objectDate);
-      // if (objectDate.message) {
-      //   setMessage(objectDate.message);
-      // } else {
-      //   const str = `The best profession was ${
-      //     objectDate.best_buyer_profession
-      //   } with a total earned of $${objectDate.total_earned.toFixed(
-      //     2,
-      //   )} for the given time period`;
-      //   setMessage(str);
-      // }
     }
   }
   return (
@@ -42,11 +67,17 @@ export default function BestBuyers() {
         <Button
           disabled={date?.from === undefined || date?.to === undefined}
           type={"submit"}
-          className="w-[212px] mt-6"
+          className="w-[212px] my-6"
         >
           Search Best Buyers
         </Button>
       </form>
+      <DataTable
+        columns={columns}
+        data={bestBuyers}
+        filterValue={"total_earned"}
+        enableSorting={false}
+      />
     </div>
   );
 }

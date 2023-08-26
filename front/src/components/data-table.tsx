@@ -26,12 +26,14 @@ interface DataTableProps<TData, TValue, Tstring> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filterValue: string;
+  enableSorting?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   filterValue,
+  enableSorting,
 }: DataTableProps<TData, TValue, String>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -53,18 +55,20 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
-        <Input
-          placeholder={`Filter by ${filterValue}...`}
-          value={
-            (table.getColumn(filterValue)?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn(filterValue)?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-      </div>
+      {enableSorting && (
+        <div className="flex items-center py-4">
+          <Input
+            placeholder={`Filter by ${filterValue}...`}
+            value={
+              (table.getColumn(filterValue)?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              table.getColumn(filterValue)?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        </div>
+      )}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
