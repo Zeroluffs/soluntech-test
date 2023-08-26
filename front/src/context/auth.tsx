@@ -65,8 +65,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log("register");
       const decodedToken = getDecodedToken();
       if (decodedToken) {
+        await router.push("/");
         setUser(decodedToken);
-        router.push("/");
       }
     } else {
       setWrongCredentials(true);

@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import useSubmission from "@/context/submission";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/router";
+import { ModeToggle } from "@/components/ButtonToggle";
 
 export function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -101,6 +102,14 @@ export function NavBar() {
         >
           Logout
         </Button>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <ModeToggle />
       </Typography>
     </ul>
   );

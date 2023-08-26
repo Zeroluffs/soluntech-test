@@ -12,7 +12,6 @@ export default function Home() {
     <main>
       <AgreementList />
       {/*<div>hello</div>*/}
-      {/*<ModeToggle />*/}
     </main>
   );
 }
