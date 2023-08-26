@@ -73,6 +73,7 @@ export default function UnpaidSubmissions() {
         columns={columns}
         data={unpaidSubmissions}
         filterValue={"description"}
+        enableSorting={true}
       />
     </div>
   );
