@@ -1,18 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
-import { getUserAgreements } from "@/controllers/agreement/agreement";
 import { DataTable } from "@/components/data-table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import useSWR from "swr";
+import { useAgreements } from "@/utils/fetchers";
 
 export const columns: ColumnDef<Agreement>[] = [
   {
@@ -30,10 +18,7 @@ export const columns: ColumnDef<Agreement>[] = [
 ];
 
 export default function AgreementList() {
-  const { data, error, isLoading } = useSWR(
-    "/api/agreements",
-    getUserAgreements,
-  );
+  const { data, error, isLoading } = useAgreements();
 
   if (isLoading) {
     return <div>Loading...</div>;

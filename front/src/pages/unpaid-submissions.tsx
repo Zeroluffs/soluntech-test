@@ -1,12 +1,10 @@
 import { useAuthentication } from "@/hooks/checkAuthentication";
-import { useEffect, useState } from "react";
-import { getUnpaidSubmissions } from "@/controllers/submissions/submissions";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { DataTable } from "@/components/data-table";
 import { PaySubmissionModal } from "@/components/pay-submission-modal";
-import useSWR from "swr";
+import { useUnpaidSubmissions } from "@/utils/fetchers";
 
 export const columns: ColumnDef<Submission>[] = [
   {
@@ -42,10 +40,7 @@ export const columns: ColumnDef<Submission>[] = [
 ];
 
 export default function UnpaidSubmissions() {
-  const { data, error, isLoading } = useSWR(
-    "/api/unpaidSubmissions",
-    getUnpaidSubmissions,
-  );
+  const { data, error, isLoading } = useUnpaidSubmissions();
   useAuthentication();
   if (isLoading) {
     return <div>Loading...</div>;
