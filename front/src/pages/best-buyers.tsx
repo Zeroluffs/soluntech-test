@@ -56,7 +56,6 @@ export default function BestBuyers() {
       const { fromDate, endDate } = formatDate(from, to);
       const objectDate = await getBestBuyers(fromDate, endDate);
       setBestBuyers(objectDate);
-      console.log(objectDate);
     }
   }
   return (

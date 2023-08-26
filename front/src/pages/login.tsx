@@ -21,8 +21,8 @@ const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  password: z.string().min(4, {
-    message: "Password must be at least 4 characters.",
+  password: z.string().min(3, {
+    message: "Password must be at least 3 characters.",
   }),
 });
 
@@ -45,7 +45,6 @@ export default function Login() {
   }, []);
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoginStatus("submitted");
-    console.log(values);
     await login(values);
     setLoginStatus("not_submitted");
   }

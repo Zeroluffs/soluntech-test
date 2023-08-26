@@ -14,7 +14,6 @@ export async function addFunds(amount: number, id: string | undefined) {
       },
       body: JSON.stringify(body),
     });
-    console.log(response);
     return response.json();
   } catch (error) {
     console.error(error);

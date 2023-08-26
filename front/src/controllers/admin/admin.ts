@@ -34,7 +34,6 @@ export async function getBestBuyers(from: string, to: string, limit?: number) {
         },
       },
     );
-    console.log(response);
     return response.json();
   } catch (e) {
     console.error(e);

@@ -37,7 +37,6 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
       price: agreement.price,
     };
     const res = await paySubmission(price, agreement.id);
-    console.log(res);
     setMessage(res.message);
     if (res.message !== PAYMENT_SUCCESSFUL) {
       setPaymentStatus("unpaid");

@@ -10,7 +10,6 @@ export function useAuthentication() {
 
     async function checkToken() {
       res = await verifyToken();
-      console.log("res", res);
       if (!token || !res) {
         router.push("/login");
       }

@@ -54,7 +54,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setWrongCredentials(false);
       const token = await response.json();
       registerUserLocalStorage(token);
-      console.log("register");
       const decodedToken = getDecodedToken();
       if (decodedToken) {
         await router.push("/");

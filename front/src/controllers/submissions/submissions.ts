@@ -13,7 +13,6 @@ export async function getUnpaidSubmissions(): Promise<Submission[]> {
         "x-access-token": token,
       },
     });
-    console.log(response);
     return response.json();
   } catch (error) {
     console.error(error);
@@ -32,7 +31,6 @@ export async function paySubmission(price: SubProp, id: number) {
       },
       body: JSON.stringify(price),
     });
-    console.log(response);
     return response.json();
   } catch (error) {
     console.error(error);
