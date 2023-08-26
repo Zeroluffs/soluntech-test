@@ -39,6 +39,11 @@ export function ProfileMenu() {
             <Link href={"/best-professions"}>Best Professions</Link>
           </Typography>
         </MenuItem>
+        <MenuItem className="flex items-center gap-2">
+          <Typography variant="small" className="font-normal text-lg">
+            <Link href={"/best-buyers"}>Best Buyers</Link>
+          </Typography>
+        </MenuItem>
         <MenuItem className="flex mt-2 items-center gap-2">
           <ModeToggle />
         </MenuItem>

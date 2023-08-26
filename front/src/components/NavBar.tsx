@@ -90,6 +90,18 @@ export function NavBar() {
               Best Professions
             </Link>
           </Typography>
+          <Typography variant="small" className="p-1 font-normal">
+            <Link
+              className={` ${
+                router.pathname === "/best-buyers"
+                  ? "text-blue-500 text-lg"
+                  : ""
+              } hover:text-blue-500 `}
+              href={"/best-professions"}
+            >
+              Best Professions
+            </Link>
+          </Typography>
           <Typography
             as="li"
             variant="small"
