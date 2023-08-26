@@ -4,7 +4,7 @@ const agreementsService = {};
 
 agreementsService.getAgreementById = async (agreementId, userId) => {
   const [agreement] = await db.query(
-    `SELECT * FROM agreements WHERE id = ${agreementId} AND (BuyerId = ${userId} OR SupplierId = ${userId})`,
+    `SELECT * FROM agreements WHERE id = ${agreementId} AND (BuyerId = ${userId} OR SupplierId = ${userId})`
   );
   if (agreement.length === 0) {
     throw new CustomError("No Agreements", 404);
@@ -15,7 +15,7 @@ agreementsService.getAgreementById = async (agreementId, userId) => {
 agreementsService.getUserAgreements = async (userId) => {
   const [agreements] = await db.query(
     `SELECT * FROM agreements WHERE status IN ('new', 'in_progress') AND (BuyerId = ${userId} OR SupplierId = ${userId})
-        `,
+        `
   );
   if (agreements.length === 0) {
     throw new CustomError("No Agreements", 404);
