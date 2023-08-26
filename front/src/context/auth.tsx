@@ -66,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const decodedToken = getDecodedToken();
       if (decodedToken) {
         await router.push("/");
+        setBalance(decodedToken.balance);
         setUser(decodedToken);
       }
     } else {

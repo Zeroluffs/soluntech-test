@@ -16,6 +16,7 @@ import useSubmission from "@/context/submission";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/router";
 import { ModeToggle } from "@/components/ButtonToggle";
+import { ProfileMenu } from "@/components/ProfileMenu";
 
 export function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -111,6 +112,14 @@ export function NavBar() {
         className="p-1 font-normal"
       >
         <ModeToggle />
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <ProfileMenu />
       </Typography>
     </ul>
   );
