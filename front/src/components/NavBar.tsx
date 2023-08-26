@@ -14,10 +14,12 @@ import { useAuthentication } from "@/hooks/checkAuthentication";
 import { Button } from "@/components/ui/button";
 import useSubmission from "@/context/submission";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/router";
 
 export function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
   const { user, balance, logout } = useAuth();
+  const router = useRouter();
   useAuthentication();
   const { toast } = useToast();
   const { setIsModalOpen, isModalOpen } = useSubmission();
@@ -35,7 +37,13 @@ export function NavBar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link href="/" className="flex items-center">
+        <Link
+          href="/"
+          // className="flex hover:text-blue-500 items-center"
+          className={`flex ${
+            router.pathname === "/" ? "text-blue-500 text-lg" : ""
+          } hover:text-blue-500 items-center`}
+        >
           Agreement List
         </Link>
       </Typography>
@@ -45,9 +53,26 @@ export function NavBar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link href="/unpaid-submissions" className="flex items-center">
+        <Link
+          href="/unpaid-submissions"
+          // className="flex hover:text-blue-500 items-center"
+          className={`flex ${
+            router.pathname === "/unpaid-submissions"
+              ? "text-blue-500 text-lg"
+              : ""
+          } hover:text-blue-500 items-center`}
+        >
           Unpaid Submissions
         </Link>
+      </Typography>
+
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-bold text-green-500"
+      >
+        Total Balance: ${balance}
       </Typography>
       <Typography
         as="li"
@@ -62,14 +87,6 @@ export function NavBar() {
         >
           Add Funds
         </Button>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal text-green-500"
-      >
-        Total Balance: ${balance}
       </Typography>
       <Typography
         as="li"
