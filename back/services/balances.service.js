@@ -1,32 +1,61 @@
 const { db } = require("../lib/orm");
 const CustomError = require("../classUtils/CustomError");
+const { Submission } = require("../models/submissions");
+const { Account } = require("../models/accounts");
+const { Agreement } = require("../models/agreement");
 const balancesService = {};
 
 balancesService.depositBuyerMoney = async (accountId, amount, userId) => {
-  const [account] = await db.query(
-    ` SELECT * FROM accounts WHERE id = ${accountId} AND type = 'buyer'`
-  );
-  if (account.length === 0) {
-    throw new CustomError("Account not found", 404);
-  }
-  const [submissions] = await db.query(
-    `SELECT s.* FROM submissions s INNER JOIN agreements a ON s.AgreementId = a.id WHERE a.status IN ('in_progress', 'new') AND (a.BuyerId = ${userId} ) AND s.paid = 0`
-  );
-  if (!submissions) {
-    throw new CustomError("No submissions found", 404);
-  }
-  let totalPrice = submissions.reduce((acc, submission) => {
-    return acc + submission.price;
-  }, 0);
+  const transaction = await db.transaction();
 
-  const tenPercent = totalPrice * 0.1;
-  if (amount > tenPercent) {
-    throw new CustomError("You cannot deposit that amount", 400);
+  try {
+    const account = await Account.findOne({
+      where: {
+        id: accountId,
+        type: "buyer",
+      },
+      transaction,
+    });
+
+    if (!account) {
+      throw new CustomError("Account not found", 404);
+    }
+
+    const submissions = await Submission.findAll({
+      include: {
+        model: Agreement,
+        where: {
+          status: ["in_progress", "new"],
+          BuyerId: userId,
+        },
+      },
+      where: {
+        paid: 0,
+      },
+      transaction,
+    });
+
+    if (!submissions || submissions.length === 0) {
+      throw new CustomError("No submissions found", 404);
+    }
+
+    const totalPrice = submissions.reduce((acc, submission) => {
+      return acc + submission.price;
+    }, 0);
+
+    const tenPercent = totalPrice * 0.1;
+    if (amount > tenPercent) {
+      throw new CustomError("You cannot deposit that amount", 400);
+    }
+
+    account.balance += amount;
+    await account.save({ transaction });
+
+    await transaction.commit();
+  } catch (error) {
+    await transaction.rollback();
+    throw error;
   }
-  account[0].balance = account[0].balance + amount;
-  await db.query(
-    `UPDATE accounts SET balance = ${account[0].balance} WHERE id = ${accountId}`
-  );
 };
 
 module.exports = balancesService;
