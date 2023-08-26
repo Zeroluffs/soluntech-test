@@ -11,10 +11,12 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { paySubmission } from "@/controllers/submissions/submissions";
-import { PAYMENT_SUCCESSFULL } from "@/controllers/consts";
+import { PAYMENT_SUCCESSFUL } from "@/controllers/consts";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import useSubmission from "@/context/submission";
+import useAuth from "@/context/auth";
+import classNames from "classnames";
 
 interface SubmissionType {
   submissions: Submission;
@@ -26,6 +28,7 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
   const paymentSuccess = paymentStatus === "success";
   const { toast } = useToast();
   const { setIsModalOpen } = useSubmission();
+  const { setBalance, balance } = useAuth();
   const [open, setOpen] = useState(false);
   async function handlePay(agreement: Submission) {
     setPaymentStatus("loading");
@@ -35,7 +38,7 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
     const res = await paySubmission(price, agreement.id);
     console.log(res);
     setMessage(res.message);
-    if (res.message !== PAYMENT_SUCCESSFULL) {
+    if (res.message !== PAYMENT_SUCCESSFUL) {
       setPaymentStatus("unpaid");
       toast({
         variant: "destructive",
@@ -52,6 +55,13 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
             Deposit Money
           </ToastAction>
         ),
+      });
+    } else {
+      setPaymentStatus("success");
+      setBalance(balance - agreement.price);
+      toast({
+        title: "Success",
+        description: res.message,
       });
     }
   }
@@ -83,7 +93,12 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
               Pay
             </Button>
             {message ? (
-              <DialogDescription className="text-red-500">
+              <DialogDescription
+                className={classNames(
+                  !paymentSuccess ? "text-red-500" : "text-green-500",
+                  "",
+                )}
+              >
                 {message}
               </DialogDescription>
             ) : null}

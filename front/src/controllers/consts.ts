@@ -1,5 +1,5 @@
 export const BASE_URL = "http://localhost:3001";
 
-export const PAYMENT_SUCCESSFULL = "Payment Successfull";
+export const PAYMENT_SUCCESSFUL = "Payment Successful";
 
-export const DEPOSIT_SUCCESSFULL = "Deposit Successfull";
+export const DEPOSIT_SUCCESSFUL = "Deposit Successful";

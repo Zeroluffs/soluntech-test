@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { ChangeEvent, useState } from "react";
 import { addFunds } from "@/controllers/balance/funds";
 import useAuth from "@/context/auth";
-import { DEPOSIT_SUCCESSFULL } from "@/controllers/consts";
+import { DEPOSIT_SUCCESSFUL } from "@/controllers/consts";
 import classNames from "classnames";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -32,7 +32,7 @@ export function AddFundsModal() {
   async function handleSubmit() {
     setIsProcessing("loading");
     const res = await addFunds(amount, user?.userId);
-    if (res.message !== DEPOSIT_SUCCESSFULL) {
+    if (res.message !== DEPOSIT_SUCCESSFUL) {
       setIsProcessing("failure");
       toast({
         variant: "destructive",
