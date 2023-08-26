@@ -5,19 +5,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { DataTable } from "@/components/data-table";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { PaySubmissionModal } from "@/components/PaySubmissonModal";
-import { SubmissionProvider } from "@/context/submission";
+import useSWR from "swr";
 
 export const columns: ColumnDef<Submission>[] = [
   {
@@ -51,27 +40,24 @@ export const columns: ColumnDef<Submission>[] = [
     },
   },
 ];
-function handlePay(agreement: Submission) {
-  console.log(agreement);
-  console.log("pay");
-}
+
 export default function UnpaidSubmissions() {
-  const [unpaidSubmissions, setUnpaidSubmissions] = useState<Submission[]>([]);
-  useEffect(() => {
-    const getAgreements = async () => {
-      const res = await getUnpaidSubmissions();
-      setUnpaidSubmissions(res);
-    };
-    getAgreements();
-  }, []);
-
+  const { data, error, isLoading } = useSWR(
+    "/api/unpaidSubmissions",
+    getUnpaidSubmissions,
+  );
   useAuthentication();
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>failed to load</div>;
+  }
   return (
     <div className="container mx-auto py-10">
       <DataTable
         columns={columns}
-        data={unpaidSubmissions}
+        data={data!!}
         filterValue={"description"}
         enableSorting={true}
       />
