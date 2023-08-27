@@ -9,13 +9,12 @@ export default function MainLayout({
 }) {
   return (
     <>
-      <div className="container relative mx-auto max-w-7xl">
+      <div className="container relative   mx-auto max-w-7xl">
         <NavBar />
         <AddFundsModal />
         {children}
         <Toaster />
       </div>
-      <footer>sdjfl</footer>
     </>
   );
 }

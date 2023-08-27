@@ -4,6 +4,17 @@
  
 @layer base {
   :root {
+    [data-radix-popper-content-wrapper] {
+      /*transform: translate(64px, 40px) !important;*/
+    }
+
+    /* Media query for mobile devices */
+    @media (max-width: 768px) {
+      [data-radix-popper-content-wrapper] {
+        transform: translate(32px, 20px) !important;
+        /* Apply different values for mobile screens */
+      }
+    }
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -65,7 +76,7 @@
     --ring: 212.7 26.8% 83.9%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
