@@ -5,6 +5,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { DataTable } from "@/components/data-table";
 import { PaySubmissionModal } from "@/components/pay-submission-modal";
 import { useUnpaidSubmissions } from "@/utils/fetchers";
+import { LoaderSpin } from "@/components/loader-spin";
 
 export const columns: ColumnDef<Submission>[] = [
   {
@@ -43,7 +44,7 @@ export default function UnpaidSubmissions() {
   const { data, error, isLoading } = useUnpaidSubmissions();
   useAuthentication();
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoaderSpin />;
   }
   if (error) {
     return <div>failed to load</div>;

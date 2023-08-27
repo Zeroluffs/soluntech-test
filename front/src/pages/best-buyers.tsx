@@ -8,7 +8,6 @@ import { formatDate } from "@/utils/formatDate";
 import { getBestBuyers, getUsers } from "@/controllers/admin/admin";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
-import { PaySubmissionModal } from "@/components/pay-submission-modal";
 import { BestBuyer } from "@/types/bestbuyer";
 import { DataTable } from "@/components/data-table";
 
@@ -59,7 +58,7 @@ export default function BestBuyers() {
     }
   }
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto  py-0 sm:py-10">
       <form onSubmit={searchBestBuyers}>
         <DatePickerRange setDate={setDate} date={date} />
         <Input className="w-[144px]" type={"number"} placeholder="Limit" />

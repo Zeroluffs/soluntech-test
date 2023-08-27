@@ -8,11 +8,14 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="container mx-auto max-w-7xl">
-      <NavBar />
-      <AddFundsModal />
-      {children}
-      <Toaster />
-    </div>
+    <>
+      <div className="container relative mx-auto max-w-7xl">
+        <NavBar />
+        <AddFundsModal />
+        {children}
+        <Toaster />
+      </div>
+      <footer>sdjfl</footer>
+    </>
   );
 }

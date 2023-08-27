@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { cn } from "@/lib/utils";
+import { LoaderSpin } from "@/components/loader-spin";
 const PageWithTransition = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const prevScreen = useRef(Component);
@@ -20,7 +21,7 @@ const PageWithTransition = ({ Component, pageProps }: AppProps) => {
       router.events.off("routeChangeComplete", handler);
     };
   }, [Component, router.events]);
-  const Loading = () => <div className="container mx-auto">Loading...</div>;
+  const Loading = () => <LoaderSpin />;
 
   const Screen = !transitioning ? Component : Loading;
   return (

@@ -1,6 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/data-table";
 import { useAgreements } from "@/utils/fetchers";
+import { Loader2 } from "lucide-react";
+import { LoaderSpin } from "@/components/loader-spin";
 
 export const columns: ColumnDef<Agreement>[] = [
   {
@@ -21,7 +23,7 @@ export default function AgreementList() {
   const { data, error, isLoading } = useAgreements();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoaderSpin />;
   }
   if (error) {
     return <div>failed to load</div>;
