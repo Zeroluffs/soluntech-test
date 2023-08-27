@@ -18,7 +18,7 @@ userService.Login = async (username, password) => {
   const sql = `SELECT * FROM accounts WHERE username = '${username}'`;
   const results = await db.query(sql);
   const user = results[0];
-  if (user.length > 0) {
+  if (user?.length > 0) {
     const match = await bcrypt.compare(password, user[0].password);
     if (match) {
       return jwt.sign(
