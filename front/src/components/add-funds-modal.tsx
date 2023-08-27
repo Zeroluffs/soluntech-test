@@ -77,9 +77,11 @@ export function AddFundsModal() {
             </div>
           </div>
           <DialogFooter>
+            {!message ? <div></div> : null}
             <Button
               disabled={isLoading || amount === 0}
               onClick={() => handleSubmit()}
+              className={"order-last"}
             >
               {isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4  animate-spin" />
@@ -89,7 +91,9 @@ export function AddFundsModal() {
             {message ? (
               <DialogDescription
                 className={classNames(
-                  isSuccess ? "text-green-500" : "text-red-500",
+                  isSuccess
+                    ? "text-green-500"
+                    : "text-red-500 whitespace-pre-wrap",
                   "",
                 )}
               >
