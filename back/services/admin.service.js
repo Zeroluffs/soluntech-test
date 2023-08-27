@@ -1,8 +1,5 @@
 const { db, Orm } = require("../lib/orm");
 const CustomError = require("../classUtils/CustomError");
-const { Agreement } = require("../models/agreement");
-const { Submission } = require("../models/submissions");
-const { Account } = require("../models/accounts");
 const adminService = {};
 
 adminService.getBestProfessions = async (start, end) => {
