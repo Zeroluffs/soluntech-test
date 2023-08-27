@@ -74,7 +74,7 @@ export function NavBar({ children }: { children: ReactNode }) {
         color="blue-gray"
         className="p-1 font-bold text-green-500"
       >
-        Total Balance: ${balance}
+        Total Balance: ${balance.toFixed(2)}
       </Typography>
       {openNav && (
         <>

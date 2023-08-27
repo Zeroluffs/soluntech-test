@@ -70,7 +70,9 @@ export function PaySubmissionModal({ submissions }: SubmissionType) {
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Pay</Button>
+          <Button disabled={submissions.price > balance} variant="outline">
+            Pay
+          </Button>
         </DialogTrigger>
         <DialogContent className="w-[300px] sm:max-w-[425px]">
           <DialogHeader>
