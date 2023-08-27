@@ -36,7 +36,10 @@ balancesService.depositBuyerMoney = async (accountId, amount, userId) => {
     });
 
     if (!submissions || submissions.length === 0) {
-      throw new CustomError("No submissions found", 404);
+      throw new CustomError(
+        "No submissions found so you cannot deposit money",
+        404,
+      );
     }
 
     const totalPrice = submissions.reduce((acc, submission) => {
