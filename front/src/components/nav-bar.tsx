@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import {
   Navbar,
   MobileNav,
@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 import { ModeToggle } from "@/components/button-toggle";
 import { ProfileMenu } from "@/components/profile-menu";
 
-export function NavBar() {
+export function NavBar({ children }: { children: ReactNode }) {
   const [openNav, setOpenNav] = React.useState(false);
   const { user, balance, logout } = useAuth();
   const router = useRouter();
@@ -230,7 +230,7 @@ export function NavBar() {
           {/*</Button>*/}
         </Collapse>
       </Navbar>
-      {/*<div className="mx-auto max-w-screen-md py-12"></div>*/}
+      <div className="mx-auto  py-12">{children}</div>
     </div>
   );
 }
