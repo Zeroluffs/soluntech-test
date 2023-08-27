@@ -1,7 +1,6 @@
-const { db, Orm } = require("../lib/orm");
+const { db } = require("../lib/orm");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { status } = require("express/lib/response");
 const CustomError = require("../classUtils/CustomError");
 const userService = require("../services/user.service");
 
@@ -25,7 +24,7 @@ describe("userService.Login", () => {
     const mockUser = {
       id: 1,
       username: "testuser",
-      password: "hashedpassword", // Use a valid hashed password here
+      password: "hashedpassword",
       profession: "developer",
       balance: 100,
       type: "buyer",
