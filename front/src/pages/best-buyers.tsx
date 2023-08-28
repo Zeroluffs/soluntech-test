@@ -44,6 +44,7 @@ export default function BestBuyers() {
     from: new Date(2023, 7, 20),
     to: addDays(new Date(2023, 7, 20), 20),
   });
+  const [limit, setLimit] = React.useState<number>(0);
   const [bestBuyers, setBestBuyers] = React.useState<BestBuyer[]>([]);
   const [message, setMessage] = React.useState<string>("");
   async function searchBestBuyers(e: React.FormEvent<HTMLFormElement>) {
@@ -53,15 +54,23 @@ export default function BestBuyers() {
       const from = date.from.toDateString();
       const to = date!!.to!!.toDateString();
       const { fromDate, endDate } = formatDate(from, to);
-      const objectDate = await getBestBuyers(fromDate, endDate);
+      const objectDate = await getBestBuyers(fromDate, endDate, limit);
       setBestBuyers(objectDate);
     }
   }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLimit(parseInt(e.target.value));
+  };
   return (
     <div className="container mx-auto  py-0 sm:py-10">
       <form onSubmit={searchBestBuyers}>
         <DatePickerRange setDate={setDate} date={date} />
-        <Input className="w-[144px]" type={"number"} placeholder="Limit" />
+        <Input
+          onChange={handleInputChange}
+          className="w-[144px]"
+          type={"number"}
+          placeholder="Limit"
+        />
         <Button
           disabled={date?.from === undefined || date?.to === undefined}
           type={"submit"}
